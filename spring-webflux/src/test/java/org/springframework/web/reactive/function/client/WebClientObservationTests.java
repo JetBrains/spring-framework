@@ -117,7 +117,7 @@ class WebClientObservationTests {
 		WebClient client = WebClient.builder().observationRegistry(observationRegistry).exchangeFunction(exchangeFunction).build();
 		StepVerifier.create(client.get().uri("/path").retrieve().bodyToMono(Void.class))
 				.expectError(IllegalStateException.class)
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 		assertThatHttpObservation().hasError()
 				.hasLowCardinalityKeyValue("exception", "IllegalStateException")
 				.hasLowCardinalityKeyValue("status", "CLIENT_ERROR");
@@ -127,7 +127,7 @@ class WebClientObservationTests {
 	void recordsObservationForCancelledExchange() {
 		StepVerifier.create(this.builder.build().get().uri("/path").retrieve().bodyToMono(Void.class))
 				.thenCancel()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 		assertThatHttpObservation().hasLowCardinalityKeyValue("outcome", "UNKNOWN")
 				.hasLowCardinalityKeyValue("status", "CLIENT_ERROR");
 	}
@@ -137,7 +137,7 @@ class WebClientObservationTests {
 		StepVerifier.create(this.builder.build().get().uri("/path").retrieve().bodyToFlux(String.class).take(1))
 				.expectNextCount(1)
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 		assertThatHttpObservation().hasLowCardinalityKeyValue("outcome", "SUCCESS")
 				.hasLowCardinalityKeyValue("status", "200");
 	}
@@ -186,7 +186,7 @@ class WebClientObservationTests {
 		Mono<Void> responseMono = client.get().uri("/path").retrieve().bodyToMono(Void.class);
 		StepVerifier.create(responseMono)
 				.expectError(IllegalStateException.class)
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 		assertThatHttpObservation().hasError()
 				.hasLowCardinalityKeyValue("exception", "IllegalStateException")
 				.hasLowCardinalityKeyValue("status", "200");

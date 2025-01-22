@@ -25,6 +25,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget;
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion;
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile;
 
+import java.util.Arrays;
+
 /**
  * @author Brian Clozel
  * @author Sebastien Deleuze
@@ -42,20 +44,51 @@ public class KotlinConventions {
 		});
 	}
 
+	private void setAdditionalCliOptions(KotlinCompile compile) {
+		if (compile.getProject().hasProperty("kotlin_additional_cli_options")) {
+			String cli = (String) compile.getProject().getProperties().get("kotlin_additional_cli_options");
+			compile.getCompilerOptions().getFreeCompilerArgs().addAll(Arrays.stream(cli.trim().split(" ")).toList());
+			System.out.println("Kotlin additional CLI args: " + cli + " in " + compile.getProject());
+		}
+	}
+
+	private void setLanguageVersion(KotlinCompile compile) {
+		if (compile.getProject().hasProperty("kotlin_language_version")) {
+			String lv = (String) compile.getProject().getProperties().get("kotlin_language_version");
+			compile.getCompilerOptions().getLanguageVersion().set(KotlinVersion.fromVersion(lv));
+			System.out.println("Kotlin language version: " + lv + " in " + compile.getProject());
+		}
+	}
+
+	private void setApiVersion(KotlinCompile compile) {
+		if (compile.getProject().hasProperty("kotlin_api_version")) {
+			String av = (String) compile.getProject().getProperties().get("kotlin_api_version");
+			compile.getCompilerOptions().getApiVersion().set(KotlinVersion.fromVersion(av));
+			System.out.println("Kotlin api version: " + av + " in " + compile.getProject());
+		}
+	}
+
 	private void configure(KotlinCompile compile) {
 		compile.compilerOptions(options -> {
-			options.getApiVersion().set(KotlinVersion.KOTLIN_2_2);
-			options.getLanguageVersion().set(KotlinVersion.KOTLIN_2_2);
+
+			setLanguageVersion(compile);
+			setApiVersion(compile);
+			setAdditionalCliOptions(compile);
+
 			options.getJvmTarget().set(JvmTarget.JVM_17);
 			options.getJavaParameters().set(true);
-			options.getAllWarningsAsErrors().set(true);
 			options.getFreeCompilerArgs().addAll(
 					"-Xsuppress-version-warnings",
 					"-Xjsr305=strict", // For dependencies using JSR 305
 					"-opt-in=kotlin.RequiresOptIn",
 					"-Xjdk-release=17", // Needed due to https://youtrack.jetbrains.com/issue/KT-49746
-					"-Xannotation-default-target=param-property" // Preferred behavior, default with Kotlin language version set to 2.4+, see https://youtrack.jetbrains.com/issue/KT-73255
+					"-Xreport-all-warnings",
+					"-Xrender-internal-diagnostic-names",
+					"-Wextra",
+					"-Xuse-fir-experimental-checkers",
+					"-Xannotation-default-target=param-property"
 			);
+			options.getAllWarningsAsErrors().set(false); // KT-75078
 		});
 	}
 

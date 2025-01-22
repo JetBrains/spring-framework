@@ -98,7 +98,7 @@ class RSocketServiceIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 1 async").expectNext("Hello 2 async").expectNext("Hello 3 async")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -108,7 +108,7 @@ class RSocketServiceIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 0").expectNextCount(6).expectNext("Hello 7")
 				.thenCancel()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 

@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Value
 
 // tag::snippet[]
 class MovieRecommender(private val customerPreferenceDao: CustomerPreferenceDao,
-					   @Value("#{systemProperties['user.country']}")
+					   @param:Value("#{systemProperties['user.country']}")
 					   private val defaultLocale: String) {
 	// ...
 }

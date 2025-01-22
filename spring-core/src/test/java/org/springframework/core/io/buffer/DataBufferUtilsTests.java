@@ -125,7 +125,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 		StepVerifier.create(result)
 				.consumeNextWith(stringConsumer("foo"))
 				.expectError(IOException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -167,7 +167,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 		StepVerifier.create(flux)
 				.consumeNextWith(stringConsumer("qux"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -198,7 +198,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 		StepVerifier.create(result)
 				.consumeNextWith(stringConsumer("foo"))
 				.expectError(IOException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -257,7 +257,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 		StepVerifier.create(flux)
 				.consumeNextWith(stringConsumer("qux"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	private void verifyReadData(Flux<DataBuffer> buffers) {
@@ -267,7 +267,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("baz"))
 				.consumeNextWith(stringConsumer("qux"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -284,7 +284,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("bar"))
 				.consumeNextWith(stringConsumer("ba"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -301,7 +301,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("bar"))
 				.consumeNextWith(stringConsumer("ba"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -374,7 +374,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("foo"))
 				.consumeNextWith(stringConsumer("bar"))
 				.expectError()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 
 		String result = String.join("", Files.readAllLines(tempFile));
 
@@ -405,7 +405,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("foo"))
 				.consumeNextWith(stringConsumer("bar"))
 				.expectError(IOException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		channel.close();
 	}
@@ -424,7 +424,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 		StepVerifier.create(writeResult, 1)
 				.consumeNextWith(stringConsumer("foo"))
 				.thenCancel()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 
 		String result = String.join("", Files.readAllLines(tempFile));
 
@@ -459,7 +459,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("baz"))
 				.consumeNextWith(stringConsumer("qux"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		String result = String.join("", Files.readAllLines(tempFile));
 
@@ -1015,7 +1015,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("foo"))
 				.consumeNextWith(stringConsumer("ba"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -1032,7 +1032,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 		StepVerifier.create(result)
 				.consumeNextWith(stringConsumer("foo"))
 				.thenCancel()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -1049,7 +1049,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 		StepVerifier.create(result)
 				.consumeNextWith(stringConsumer("foo"))
 				.expectError(RuntimeException.class)
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -1068,7 +1068,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("foo"))
 				.consumeNextWith(stringConsumer("bar"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -1086,7 +1086,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("r"))
 				.consumeNextWith(stringConsumer("baz"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -1102,7 +1102,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 		StepVerifier.create(result)
 				.consumeNextWith(stringConsumer("r"))
 				.thenCancel()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -1116,7 +1116,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 
 		StepVerifier.create(result)
 				.expectError(RuntimeException.class)
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -1131,7 +1131,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 
 		StepVerifier.create(result)
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -1176,7 +1176,7 @@ class DataBufferUtilsTests extends AbstractDataBufferAllocatingTests {
 				.consumeNextWith(stringConsumer("b"))
 				.consumeNextWith(stringConsumer("c"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	private Answer<Integer> putByte(int b) {

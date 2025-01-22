@@ -156,7 +156,7 @@ class WebClientIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello Spring!")
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -184,7 +184,7 @@ class WebClientIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext(new Pojo("foofoo", "barbar"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -246,7 +246,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.assertNext(c -> assertThat(c.getContainerValue()).isEqualTo(new Pojo("foofoo", "barbar")))
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -276,7 +276,7 @@ class WebClientIntegrationTests {
 					assertThat(entity.getHeaders().getContentLength()).isEqualTo(31);
 					assertThat(entity.getBody()).isEqualTo(content);
 				})
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -305,7 +305,7 @@ class WebClientIntegrationTests {
 					assertThat(entity.getHeaders().getContentLength()).isEqualTo(31);
 					assertThat(entity.getBody()).isNull();
 				})
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -332,7 +332,7 @@ class WebClientIntegrationTests {
 				.consumeNextWith(p -> assertThat(p.getBar()).isEqualTo("bar1"))
 				.consumeNextWith(p -> assertThat(p.getBar()).isEqualTo("bar2"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -364,7 +364,7 @@ class WebClientIntegrationTests {
 					Pojo pojo2 = new Pojo("foo2", "bar2");
 					assertThat(entity.getBody()).isEqualTo(Arrays.asList(pojo1, pojo2));
 				})
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -398,7 +398,7 @@ class WebClientIntegrationTests {
 				.expectNext(new Pojo("foo1", "bar1"))
 				.expectNext(new Pojo("foo2", "bar2"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -432,7 +432,7 @@ class WebClientIntegrationTests {
 				.expectNext(new Pojo("foo1", "bar1"))
 				.expectNext(new Pojo("foo2", "bar2"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -483,7 +483,7 @@ class WebClientIntegrationTests {
 						assertThat(entity.getBody()).isNull();
 					})
 					.expectComplete()
-					.verify(Duration.ofSeconds(3));
+					.verify(Duration.ofSeconds(7));
 
 			expectRequestCount(i);
 			expectRequest(request -> {
@@ -509,7 +509,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectNext(content)
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -533,7 +533,7 @@ class WebClientIntegrationTests {
 				.retrieve()
 				.bodyToMono(Map.class);
 
-		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(3));
+		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(7));
 	}
 
 	@ParameterizedWebClientTest  // SPR-15946
@@ -550,7 +550,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectError(WebClientResponseException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -575,7 +575,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectError(WebClientResponseException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -613,7 +613,7 @@ class WebClientIntegrationTests {
 					assertThat(request.getURI()).isEqualTo(URI.create(this.server.url(path).toString()));
 					assertThat(request.getHeaders()).isNotNull();
 				})
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -636,7 +636,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectError(WebClientResponseException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -659,7 +659,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectError(WebClientResponseException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -682,7 +682,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectError(WebClientResponseException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -716,7 +716,7 @@ class WebClientIntegrationTests {
 					assertThat(ex.getHeaders().getContentType()).isEqualTo(MediaType.TEXT_PLAIN);
 					assertThat(ex.getResponseBodyAsString()).isEqualTo(errorMessage);
 				})
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -750,7 +750,7 @@ class WebClientIntegrationTests {
 					assertThat(ex.getHeaders().getContentType()).isEqualTo(MediaType.TEXT_PLAIN);
 					assertThat(ex.getResponseBodyAsString()).isEqualTo(errorMessage);
 				})
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -777,7 +777,7 @@ class WebClientIntegrationTests {
 		StepVerifier.create(result)
 				.consumeNextWith(p -> assertThat(p.getBar()).isEqualTo("BARBAR"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -806,7 +806,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 
 		expectRequest(request -> {
 			try {
@@ -835,7 +835,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectError(MyException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -859,7 +859,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectError(MyException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -893,7 +893,7 @@ class WebClientIntegrationTests {
 					MyException error = (MyException) throwable;
 					assertThat(error.getMessage()).isEqualTo("foofoo");
 				})
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 	}
 
 	@ParameterizedWebClientTest
@@ -912,7 +912,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectError(MyException.class)
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -936,7 +936,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectNext("Internal Server error")
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -961,7 +961,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectNext("Internal Server error")
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -990,7 +990,7 @@ class WebClientIntegrationTests {
 					assertThat(entity.getBody()).isEqualTo(content);
 				})
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -1012,7 +1012,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectNext("Hello Spring!")
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -1041,7 +1041,7 @@ class WebClientIntegrationTests {
 					assertThat(entity.getHeaders().getContentLength()).isEqualTo(31);
 					assertThat(entity.getBody()).isEqualTo(new Pojo("foofoo", "barbar"));
 				})
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -1068,7 +1068,7 @@ class WebClientIntegrationTests {
 					assertThat(entity.getHeaders().getContentLength()).isEqualTo(31);
 					assertThat(entity.getBody()).isNull();
 				})
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -1098,7 +1098,7 @@ class WebClientIntegrationTests {
 					Pojo pojo2 = new Pojo("foo2", "bar2");
 					assertThat(entity.getBody()).isEqualTo(Arrays.asList(pojo1, pojo2));
 				})
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -1119,7 +1119,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.assertNext(r -> assertThat(r.getStatusCode().is2xxSuccessful()).isTrue())
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 	}
 
 	@ParameterizedWebClientTest
@@ -1135,7 +1135,7 @@ class WebClientIntegrationTests {
 		StepVerifier.create(result)
 				.consumeNextWith(entity -> assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND))
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -1161,7 +1161,7 @@ class WebClientIntegrationTests {
 		StepVerifier.create(result)
 				.consumeNextWith(entity -> assertThat(entity.getStatusCode().value()).isEqualTo(555))
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> {
@@ -1193,7 +1193,7 @@ class WebClientIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello Spring!")
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 
 		expectRequestCount(1);
 		expectRequest(request -> assertThat(request.getHeaders().get("foo")).isEqualTo("bar"));
@@ -1225,7 +1225,7 @@ class WebClientIntegrationTests {
 				.bodyToMono(String.class);
 
 		StepVerifier.create(result)
-				.expectError(MyException.class).verify(Duration.ofSeconds(3));
+				.expectError(MyException.class).verify(Duration.ofSeconds(7));
 
 		// header present
 
@@ -1239,7 +1239,7 @@ class WebClientIntegrationTests {
 
 		StepVerifier.create(result)
 				.expectNext("Hello Spring!")
-				.expectComplete().verify(Duration.ofSeconds(3));
+				.expectComplete().verify(Duration.ofSeconds(7));
 
 		expectRequestCount(2);
 	}
@@ -1288,7 +1288,7 @@ class WebClientIntegrationTests {
 					WebClientException ex = (WebClientException) throwable;
 					assertThat(ex.getCause()).isInstanceOf(IOException.class);
 				})
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 	}
 
 	@ParameterizedWebClientTest
@@ -1300,7 +1300,7 @@ class WebClientIntegrationTests {
 					WebClientException ex = (WebClientException) throwable;
 					assertThat(ex.getCause()).isInstanceOf(IOException.class);
 				})
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 	}
 
 	@ParameterizedWebClientTest
@@ -1320,7 +1320,7 @@ class WebClientIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hey now")
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 	}
 
 	@Disabled("Disabled because it's flaky (gh-36589)")

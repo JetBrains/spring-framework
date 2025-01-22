@@ -55,7 +55,7 @@ class RestClientProxyRegistryIntegrationTests {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		this.server.start(9090);
+		this.server.start(9091);
 	}
 
 	@AfterEach
@@ -137,7 +137,7 @@ class RestClientProxyRegistryIntegrationTests {
 		@Bean
 		public RestClientHttpServiceGroupConfigurer groupConfigurer() {
 			return groups -> groups.filterByName("echo", "greeting")
-					.forEachClient((group, builder) -> builder.baseUrl("http://localhost:9090"));
+					.forEachClient((group, builder) -> builder.baseUrl("http://localhost:9091"));
 		}
 	}
 

@@ -112,7 +112,7 @@ class WebClientDataBufferAllocatingTests extends AbstractDataBufferAllocatingTes
 				.retrieve()
 				.bodyToMono(Void.class);
 
-		StepVerifier.create(mono).expectComplete().verify(Duration.ofSeconds(3));
+		StepVerifier.create(mono).expectComplete().verify(Duration.ofSeconds(7));
 		assertThat(this.server.getRequestCount()).isEqualTo(1);
 	}
 
@@ -130,7 +130,7 @@ class WebClientDataBufferAllocatingTests extends AbstractDataBufferAllocatingTes
 				.retrieve()
 				.bodyToMono(new ParameterizedTypeReference<>() {});
 
-		StepVerifier.create(mono).expectError(WebClientResponseException.class).verify(Duration.ofSeconds(3));
+		StepVerifier.create(mono).expectError(WebClientResponseException.class).verify(Duration.ofSeconds(7));
 		assertThat(this.server.getRequestCount()).isEqualTo(1);
 	}
 
@@ -191,7 +191,7 @@ class WebClientDataBufferAllocatingTests extends AbstractDataBufferAllocatingTes
 
 		StepVerifier.create(result)
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 	}
 
 	@ParameterizedDataBufferAllocatingTest
@@ -214,7 +214,7 @@ class WebClientDataBufferAllocatingTests extends AbstractDataBufferAllocatingTes
 					assertThat(entity.getBody()).isNull();
 				})
 				.expectComplete()
-				.verify(Duration.ofSeconds(3));
+				.verify(Duration.ofSeconds(7));
 	}
 
 

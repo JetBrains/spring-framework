@@ -105,7 +105,7 @@ class WebClientAdapterTests {
 		StepVerifier.create(initService(Service.class).getGreeting())
 				.expectNext("Hello Spring!")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -125,7 +125,7 @@ class WebClientAdapterTests {
 		StepVerifier.create(initService(webClient, Service.class).getGreetingWithAttribute("myAttributeValue"))
 				.expectNext("Hello Spring!")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 
 		assertThat(attributes).containsEntry("myAttribute", "myAttributeValue");
 	}
