@@ -1,3 +1,10 @@
+pluginManagement {
+	repositories {
+		maven {url = settings.ext['kotlin_repo_url']}
+		gradlePluginPortal()
+	}
+}
+
 plugins {
 	id "io.spring.develocity.conventions" version "0.0.22"
 }
