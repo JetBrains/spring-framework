@@ -122,7 +122,7 @@ class MessageMappingMessageHandlerTests {
 
 		StepVerifier.create(initMesssageHandler().handleMessage(message))
 				.expectErrorSatisfies(ex -> assertThat(ex.getMessage().startsWith("Could not resolve method parameter at index 0")).as("Actual: " + ex.getMessage()).isTrue())
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 

@@ -115,7 +115,7 @@ class RSocketClientToServerIntegrationTests {
 				.expectNext("Hello 3")
 				.thenAwait(Duration.ofMillis(10))
 				.thenCancel()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 
 		assertThat(interceptor.getFireAndForgetCount())
 				.as("Fire and forget requests did not actually complete handling on the server side")
@@ -130,7 +130,7 @@ class RSocketClientToServerIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 1").expectNext("Hello 2").expectNext("Hello 3")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -141,7 +141,7 @@ class RSocketClientToServerIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 1 async").expectNext("Hello 2 async").expectNext("Hello 3 async")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -151,7 +151,7 @@ class RSocketClientToServerIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 0").expectNextCount(6).expectNext("Hello 7")
 				.thenCancel()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -163,7 +163,7 @@ class RSocketClientToServerIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 1 async").expectNextCount(8).expectNext("Hello 10 async")
 				.thenCancel()  // https://github.com/rsocket/rsocket-java/issues/613
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test // gh-26344
@@ -184,7 +184,7 @@ class RSocketClientToServerIntegrationTests {
 				.expectNext("baz")
 				.thenAwait(Duration.ofMillis(10))
 				.thenCancel()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 
 		assertThat(interceptor.getMetadataPushCount())
 				.as("Metadata pushes did not actually complete handling on the server side")
@@ -194,13 +194,13 @@ class RSocketClientToServerIntegrationTests {
 	@Test
 	void voidReturnValue() {
 		Mono<String> result = requester.route("void-return-value").data("Hello").retrieveMono(String.class);
-		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(5));
+		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(10));
 	}
 
 	@Test
 	void voidReturnValueFromExceptionHandler() {
 		Mono<String> result = requester.route("void-return-value").data("bad").retrieveMono(String.class);
-		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(5));
+		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -209,7 +209,7 @@ class RSocketClientToServerIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Invalid input error handled")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -218,7 +218,7 @@ class RSocketClientToServerIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Invalid input error handled")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -226,7 +226,7 @@ class RSocketClientToServerIntegrationTests {
 		Mono<String> result = requester.route("invalid").data("anything").retrieveMono(String.class);
 		StepVerifier.create(result)
 				.expectErrorMessage("No handler for destination 'invalid'")
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 

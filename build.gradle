@@ -1,7 +1,8 @@
+
 plugins {
 	id 'io.freefair.aspectj' version '8.13.1' apply false
-	// kotlinVersion is managed in gradle.properties
-	id 'org.jetbrains.kotlin.plugin.serialization' version "${kotlinVersion}" apply false
+	// kotlin_version is managed in gradle.properties
+	id 'org.jetbrains.kotlin.plugin.serialization' version "${kotlin_version}" apply false
 	id 'org.jetbrains.dokka'
 	id 'com.github.bjornvester.xjc' version '1.8.2' apply false
 	id 'com.gradleup.shadow' version "9.2.2" apply false
@@ -27,6 +28,8 @@ configure(allprojects) { project ->
 		if (version.endsWith('-SNAPSHOT')) {
 			maven { url = "https://repo.spring.io/snapshot" }
 		}
+		maven { url = "$kotlin_repo_url" }
+
 	}
 	configurations.all {
 		resolutionStrategy {

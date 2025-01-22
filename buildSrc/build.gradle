@@ -3,23 +3,25 @@ plugins {
 	id 'checkstyle'
 }
 
-repositories {
-	mavenCentral()
-	gradlePluginPortal()
-}
-
 ext {
 	def propertiesFile = new File(new File("$projectDir").parentFile, "gradle.properties")
 	propertiesFile.withInputStream {
 		def properties = new Properties()
 		properties.load(it)
-		set("kotlinVersion", properties["kotlinVersion"])
+		set("kotlin_version", project.properties['kotlin_version'] ?: properties["kotlin_version"])
+		set("kotlin_repo_url", project.properties['kotlin_repo_url'] ?: properties["kotlin_repo_url"])
 	}
+}
+
+repositories {
+	mavenCentral()
+	gradlePluginPortal()
+	maven { url = project.properties['kotlin_repo_url'] }
 }
 
 dependencies {
 	checkstyle "io.spring.javaformat:spring-javaformat-checkstyle:${javaFormatVersion}"
-	implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+	implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
 	implementation "org.jetbrains.dokka:dokka-gradle-plugin:2.2.0"
 	implementation "com.tngtech.archunit:archunit:1.4.1"
 	implementation "org.gradle:test-retry-gradle-plugin:1.6.2"

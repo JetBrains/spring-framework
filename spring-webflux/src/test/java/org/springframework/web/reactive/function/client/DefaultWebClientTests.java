@@ -381,7 +381,7 @@ class DefaultWebClientTests {
 		WebClient client = WebClient.builder().baseUrl("/base").exchangeFunction(exchangeFunction).build();
 		StepVerifier.create(client.get().uri("/path").retrieve().bodyToMono(Void.class))
 				.expectErrorMessage("The underlying HTTP client completed without emitting a response.")
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test

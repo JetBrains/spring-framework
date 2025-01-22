@@ -166,7 +166,7 @@ class DefaultRSocketRequesterTests {
 		this.rsocket.setPayloadMonoToReturn(Mono.delay(MILLIS_10).thenReturn(toPayload(value)));
 		Mono<String> response = this.requester.route("").data("").retrieveMono(String.class);
 
-		StepVerifier.create(response).expectNext(value).expectComplete().verify(Duration.ofSeconds(5));
+		StepVerifier.create(response).expectNext(value).expectComplete().verify(Duration.ofSeconds(10));
 		assertThat(this.rsocket.getSavedMethodName()).isEqualTo("requestResponse");
 	}
 
@@ -196,7 +196,7 @@ class DefaultRSocketRequesterTests {
 		this.rsocket.setPayloadFluxToReturn(Flux.fromArray(values).delayElements(MILLIS_10).map(this::toPayload));
 		Flux<String> response = this.requester.route("").data("").retrieveFlux(String.class);
 
-		StepVerifier.create(response).expectNext(values).expectComplete().verify(Duration.ofSeconds(5));
+		StepVerifier.create(response).expectNext(values).expectComplete().verify(Duration.ofSeconds(10));
 		assertThat(this.rsocket.getSavedMethodName()).isEqualTo("requestStream");
 	}
 

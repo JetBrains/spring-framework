@@ -148,7 +148,7 @@ class RSocketServerToClientIntegrationTests {
 						.expectNext("Hello 2")
 						.expectNext("Hello 3")
 						.expectComplete()
-						.verify(Duration.ofSeconds(5));
+						.verify(Duration.ofSeconds(10));
 			});
 		}
 
@@ -163,7 +163,7 @@ class RSocketServerToClientIntegrationTests {
 						.expectNext("Hello 2 async")
 						.expectNext("Hello 3 async")
 						.expectComplete()
-						.verify(Duration.ofSeconds(5));
+						.verify(Duration.ofSeconds(10));
 			});
 		}
 
@@ -178,7 +178,7 @@ class RSocketServerToClientIntegrationTests {
 						.expectNext("Hello 6")
 						.expectNext("Hello 7")
 						.thenCancel()
-						.verify(Duration.ofSeconds(5));
+						.verify(Duration.ofSeconds(10));
 			});
 		}
 

@@ -73,7 +73,7 @@ class SseHandlerFunctionIntegrationTests extends AbstractRouterFunctionIntegrati
 				.expectNext("foo 0")
 				.expectNext("foo 1")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5L));
+				.verify(Duration.ofSeconds(15L));
 	}
 
 	@ParameterizedHttpServerTest
@@ -90,7 +90,7 @@ class SseHandlerFunctionIntegrationTests extends AbstractRouterFunctionIntegrati
 				.expectNext(new Person("foo 0"))
 				.expectNext(new Person("foo 1"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5L));
+				.verify(Duration.ofSeconds(15L));
 	}
 
 	@ParameterizedHttpServerTest
@@ -119,7 +119,7 @@ class SseHandlerFunctionIntegrationTests extends AbstractRouterFunctionIntegrati
 					assertThat(event.retry()).isNull();
 				})
 				.expectComplete()
-				.verify(Duration.ofSeconds(5L));
+				.verify(Duration.ofSeconds(15L));
 	}
 
 

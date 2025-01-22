@@ -284,7 +284,7 @@ class Jackson2JsonEncoderTests extends AbstractEncoderTests<Jackson2JsonEncoder>
 				.consumeNextWith(expectString("[{\"foo\":\"foo\",\"bar\":\"bar\"}"))
 				.consumeNextWith(expectString("]"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@Test

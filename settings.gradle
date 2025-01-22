@@ -1,5 +1,13 @@
+pluginManagement {
+	repositories {
+		maven { url settings.ext.find('kotlin_repo_url') ?: kotlin_repo_url }
+		gradlePluginPortal()
+	}
+}
+
 plugins {
 	id "io.spring.develocity.conventions" version "0.0.22"
+	id "org.gradle.toolchains.foojay-resolver-convention" version "1.0.0"
 }
 
 include "spring-aop"
