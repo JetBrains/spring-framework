@@ -6,6 +6,7 @@ plugins {
 repositories {
 	mavenCentral()
 	gradlePluginPortal()
+	maven { url = "${project.properties['kotlin_repo_url'] ?: mavenCentral().url}" }
 }
 
 ext {
@@ -13,13 +14,13 @@ ext {
 	propertiesFile.withInputStream {
 		def properties = new Properties()
 		properties.load(it)
-		set("kotlinVersion", properties["kotlinVersion"])
+		set("kotlin_version", properties["kotlin_version"])
 	}
 }
 
 dependencies {
 	checkstyle "io.spring.javaformat:spring-javaformat-checkstyle:${javaFormatVersion}"
-	implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+	implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
 	implementation "com.tngtech.archunit:archunit:1.4.0"
 	implementation "org.gradle:test-retry-gradle-plugin:1.6.2"
 	implementation "io.spring.javaformat:spring-javaformat-gradle-plugin:${javaFormatVersion}"

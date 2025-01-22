@@ -32,10 +32,28 @@ public class KotlinConventions {
 				(plugin) -> project.getTasks().withType(KotlinCompile.class, this::configure));
 	}
 
+	private void setLanguageVersion(KotlinCompile compile) {
+		if (compile.getProject().hasProperty("kotlin_language_version")) {
+			String lv = (String) compile.getProject().getProperties().get("kotlin_language_version");
+			compile.getCompilerOptions().getLanguageVersion().set(KotlinVersion.fromVersion(lv));
+			System.out.println("Kotlin language version: " + lv + " in " + compile.getProject());
+		}
+	}
+
+	private void setApiVersion(KotlinCompile compile) {
+		if (compile.getProject().hasProperty("kotlin_api_version")) {
+			String av = (String) compile.getProject().getProperties().get("kotlin_api_version");
+			compile.getCompilerOptions().getApiVersion().set(KotlinVersion.fromVersion(av));
+			System.out.println("Kotlin api version: " + av + " in " + compile.getProject());
+		}
+	}
+
 	private void configure(KotlinCompile compile) {
 		compile.compilerOptions(options -> {
-			options.getApiVersion().set(KotlinVersion.KOTLIN_2_2);
-			options.getLanguageVersion().set(KotlinVersion.KOTLIN_2_2);
+
+			setLanguageVersion(compile);
+			setApiVersion(compile);
+
 			options.getJvmTarget().set(JvmTarget.JVM_17);
 			options.getJavaParameters().set(true);
 			options.getAllWarningsAsErrors().set(true);
