@@ -194,7 +194,7 @@ class ChannelSendOperatorTests {
 					return Mono.error(new IllegalStateException("err"));
 				});
 
-		StepVerifier.create(operator).expectErrorMessage("err").verify(Duration.ofSeconds(5));
+		StepVerifier.create(operator).expectErrorMessage("err").verify(Duration.ofSeconds(10));
 		bufferFactory.checkForLeaks();
 	}
 

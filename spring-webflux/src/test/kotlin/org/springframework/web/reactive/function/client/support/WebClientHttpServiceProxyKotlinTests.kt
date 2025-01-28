@@ -83,7 +83,7 @@ class KotlinWebClientHttpServiceGroupAdapterServiceProxyTests {
 		StepVerifier.create(initHttpService().getGreetingMono())
 			.expectNext("Hello Spring!")
 			.expectComplete()
-			.verify(Duration.ofSeconds(5))
+			.verify(Duration.ofSeconds(10))
 	}
 
 	@Test

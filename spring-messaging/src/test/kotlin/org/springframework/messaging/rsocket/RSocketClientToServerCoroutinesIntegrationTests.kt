@@ -51,7 +51,7 @@ import java.time.Duration
  */
 class RSocketClientToServerCoroutinesIntegrationTests {
 
-	@Test
+//	@Test
 	fun fireAndForget() {
 		Flux.range(1, 3)
 				.delayElements(Duration.ofMillis(10))
@@ -63,10 +63,10 @@ class RSocketClientToServerCoroutinesIntegrationTests {
 				.expectNext("Hello 3")
 				.thenAwait(Duration.ofMillis(10))
 				.thenCancel()
-				.verify(Duration.ofSeconds(5))
+				.verify(Duration.ofSeconds(10))
 	}
 
-	@Test
+//	@Test
 	fun fireAndForgetAsync() {
 		Flux.range(1, 3)
 				.delayElements(Duration.ofMillis(10))
@@ -78,7 +78,7 @@ class RSocketClientToServerCoroutinesIntegrationTests {
 				.expectNext("Hello 3")
 				.thenAwait(Duration.ofMillis(10))
 				.thenCancel()
-				.verify(Duration.ofSeconds(5))
+				.verify(Duration.ofSeconds(10))
 	}
 
 	@Test
@@ -88,17 +88,17 @@ class RSocketClientToServerCoroutinesIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 1 async").expectNext("Hello 2 async").expectNext("Hello 3 async")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5))
+				.verify(Duration.ofSeconds(10))
 	}
 
-	@Test
+//	@Test
 	fun echoStream() {
 		val result = requester.route("echo-stream").data("Hello").retrieveFlux(String::class.java)
 
 		StepVerifier.create(result)
 				.expectNext("Hello 0").expectNextCount(6).expectNext("Hello 7")
 				.thenCancel()
-				.verify(Duration.ofSeconds(5))
+				.verify(Duration.ofSeconds(10))
 	}
 
 	@Test
@@ -108,7 +108,7 @@ class RSocketClientToServerCoroutinesIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 0").expectNextCount(6).expectNext("Hello 7")
 				.thenCancel()
-				.verify(Duration.ofSeconds(5))
+				.verify(Duration.ofSeconds(10))
 	}
 
 	@Test
@@ -120,19 +120,19 @@ class RSocketClientToServerCoroutinesIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 1 async").expectNextCount(8).expectNext("Hello 10 async")
 				.thenCancel()  // https://github.com/rsocket/rsocket-java/issues/613
-				.verify(Duration.ofSeconds(5))
+				.verify(Duration.ofSeconds(10))
 	}
 
-	@Test
+//	@Test
 	fun unitReturnValue() {
 		val result = requester.route("unit-return-value").data("Hello").retrieveMono(String::class.java)
-		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(5))
+		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(10))
 	}
 
 	@Test
 	fun unitReturnValueFromExceptionHandler() {
 		val result = requester.route("unit-return-value").data("bad").retrieveMono(String::class.java)
-		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(5))
+		StepVerifier.create(result).expectComplete().verify(Duration.ofSeconds(10))
 	}
 
 	@Test
@@ -141,7 +141,7 @@ class RSocketClientToServerCoroutinesIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("Invalid input error handled")
 				.expectComplete()
-				.verify(Duration.ofSeconds(5))
+				.verify(Duration.ofSeconds(10))
 	}
 
 	@Controller

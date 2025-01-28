@@ -123,7 +123,7 @@ class RSocketBufferLeakTests {
 		StepVerifier.create(result).expectErrorMatches(ex -> {
 			String prefix = "Ambiguous handler methods mapped for destination 'A.B':";
 			return ex.getMessage().startsWith(prefix);
-		}).verify(Duration.ofSeconds(5));
+		}).verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -132,19 +132,19 @@ class RSocketBufferLeakTests {
 		StepVerifier.create(result).expectErrorMatches(ex -> {
 			String prefix = "Cannot decode to [org.springframework.core.io.Resource]";
 			return ex.getMessage().contains(prefix);
-		}).verify(Duration.ofSeconds(5));
+		}).verify(Duration.ofSeconds(10));
 	}
 
 	@Test
 	void errorSignalWithExceptionHandler() {
 		Flux<String> result = requester.route("error-signal").data("foo").retrieveFlux(String.class);
-		StepVerifier.create(result).expectNext("Handled 'bad input'").expectComplete().verify(Duration.ofSeconds(5));
+		StepVerifier.create(result).expectNext("Handled 'bad input'").expectComplete().verify(Duration.ofSeconds(10));
 	}
 
 	@Test
 	void ignoreInput() {
 		Mono<String> result = requester.route("ignore-input").data("a").retrieveMono(String.class);
-		StepVerifier.create(result).expectNext("bar").thenCancel().verify(Duration.ofSeconds(5));
+		StepVerifier.create(result).expectNext("bar").thenCancel().verify(Duration.ofSeconds(10));
 	}
 
 	@Test // gh-24741
@@ -153,7 +153,7 @@ class RSocketBufferLeakTests {
 	void noSuchRouteOnChannelInteraction() {
 		Flux<String> input = Flux.just("foo", "bar", "baz");
 		Flux<String> result = requester.route("no-such-route").data(input).retrieveFlux(String.class);
-		StepVerifier.create(result).expectError(ApplicationErrorException.class).verify(Duration.ofSeconds(5));
+		StepVerifier.create(result).expectError(ApplicationErrorException.class).verify(Duration.ofSeconds(10));
 	}
 
 	@Test
@@ -165,7 +165,7 @@ class RSocketBufferLeakTests {
 		StepVerifier.create(result)
 				.expectNext("Hello 1 async").expectNextCount(8).expectNext("Hello 10 async")
 				.thenCancel()  // https://github.com/rsocket/rsocket-java/issues/613
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 

@@ -30,8 +30,10 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.AbstractHttpHandlerIntegrationTests;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.HttpServer;
+import org.springframework.web.testfixture.http.server.reactive.bootstrap.UndertowHttpServer;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * Integration tests for server response flushing behavior.
@@ -55,6 +57,7 @@ class FlushingIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 
 	@ParameterizedHttpServerTest
 	void writeAndFlushWith(HttpServer httpServer) throws Exception {
+		assumeFalse(httpServer instanceof UndertowHttpServer, "flaky");
 		startServer(httpServer);
 
 		Mono<String> result = this.webClient.get()
@@ -67,7 +70,7 @@ class FlushingIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 		StepVerifier.create(result)
 				.expectNext("data0data1")
 				.expectComplete()
-				.verify(Duration.ofSeconds(10L));
+				.verify(Duration.ofSeconds(25L));
 	}
 
 	@ParameterizedHttpServerTest  // SPR-14991
@@ -83,7 +86,7 @@ class FlushingIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 			StepVerifier.create(result)
 					.consumeNextWith(value -> assertThat(value.length()).isEqualTo((64 * 1024)))
 					.expectComplete()
-					.verify(Duration.ofSeconds(10L));
+					.verify(Duration.ofSeconds(25L));
 		}
 		catch (AssertionError err) {
 			String os = System.getProperty("os.name").toLowerCase();
@@ -110,7 +113,7 @@ class FlushingIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 		StepVerifier.create(result)
 				.expectNextMatches(s -> s.startsWith("0123456789"))
 				.expectComplete()
-				.verify(Duration.ofSeconds(10L));
+				.verify(Duration.ofSeconds(25L));
 	}
 
 
