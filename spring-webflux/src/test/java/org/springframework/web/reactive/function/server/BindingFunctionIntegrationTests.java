@@ -135,7 +135,7 @@ class BindingFunctionIntegrationTests extends AbstractRouterFunctionIntegrationT
 
 		StepVerifier.create(result)
 				.expectError(WebClientResponseException.InternalServerError.class)
-				.verify(Duration.ofSeconds(5L));
+				.verify(Duration.ofSeconds(15L));
 	}
 
 

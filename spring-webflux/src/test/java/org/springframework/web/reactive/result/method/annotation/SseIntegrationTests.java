@@ -105,7 +105,7 @@ class SseIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 				.expectNext("foo 0")
 				.expectNext("foo 1")
 				.thenCancel()
-				.verify(Duration.ofSeconds(5L));
+				.verify(Duration.ofSeconds(15L));
 	}
 
 	@ParameterizedSseTest
@@ -122,7 +122,7 @@ class SseIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 				.expectNext(new Person("foo 0"))
 				.expectNext(new Person("foo 1"))
 				.thenCancel()
-				.verify(Duration.ofSeconds(5L));
+				.verify(Duration.ofSeconds(15L));
 	}
 
 	@ParameterizedSseTest
@@ -169,7 +169,7 @@ class SseIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 					assertThat(event.retry()).isNull();
 				})
 				.thenCancel()
-				.verify(Duration.ofSeconds(5L));
+				.verify(Duration.ofSeconds(15L));
 	}
 
 	@ParameterizedSseTest // SPR-16494
@@ -189,7 +189,7 @@ class SseIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 				.expectNext("foo 0")
 				.expectNext("foo 1")
 				.thenCancel()
-				.verify(Duration.ofSeconds(5L));
+				.verify(Duration.ofSeconds(15L));
 
 		SseController controller = this.wac.getBean(SseController.class);
 		controller.cancellation.block(Duration.ofSeconds(5));

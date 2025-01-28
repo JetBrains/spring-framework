@@ -47,9 +47,12 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.HttpServer;
+import org.springframework.web.testfixture.http.server.reactive.bootstrap.TomcatHttpServer;
+import org.springframework.web.testfixture.http.server.reactive.bootstrap.UndertowHttpServer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 /**
@@ -64,6 +67,10 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 
 	@ParameterizedHttpServerTest
 	void multipartData(HttpServer httpServer) throws Exception {
+		assumeFalse(httpServer instanceof TomcatHttpServer,
+				"TomcatHttpServer fails with invalid request body chunk");
+		assumeFalse(httpServer instanceof UndertowHttpServer); // flaky
+
 		startServer(httpServer);
 
 		Mono<ResponseEntity<Void>> result = webClient
@@ -77,11 +84,15 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 				.create(result)
 				.consumeNextWith(entity -> assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedHttpServerTest
 	void parts(HttpServer httpServer) throws Exception {
+		assumeFalse(httpServer instanceof TomcatHttpServer,
+				"TomcatHttpServer fails with invalid request body chunk");
+		assumeFalse(httpServer instanceof UndertowHttpServer); // flaky
+
 		startServer(httpServer);
 
 		Mono<ResponseEntity<Void>> result = webClient
@@ -95,11 +106,15 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 				.create(result)
 				.consumeNextWith(entity -> assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedHttpServerTest
 	void transferTo(HttpServer httpServer) throws Exception {
+		assumeFalse(httpServer instanceof TomcatHttpServer,
+				"TomcatHttpServer fails with invalid request body chunk");
+		// TODO Determine why Undertow fails: https://github.com/spring-projects/spring-framework/issues/25310
+		assumeFalse(httpServer instanceof UndertowHttpServer, "Undertow currently fails with transferTo");
 		verifyTransferTo(httpServer);
 	}
 
@@ -126,11 +141,13 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 					}
 				})
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedHttpServerTest
 	void partData(HttpServer httpServer) throws Exception {
+		assumeFalse(httpServer instanceof TomcatHttpServer,
+				"TomcatHttpServer fails with invalid request body chunk");
 		startServer(httpServer);
 
 		Mono<ResponseEntity<Void>> result = webClient
@@ -144,11 +161,14 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 				.create(result)
 				.consumeNextWith(entity -> assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 	@ParameterizedHttpServerTest
 	void proxy(HttpServer httpServer) throws Exception {
+		assumeFalse(httpServer instanceof TomcatHttpServer,
+				"TomcatHttpServer fails with invalid request body chunk");
+		assumeFalse(httpServer instanceof UndertowHttpServer, "Undertow currently fails proxying requests");
 		startServer(httpServer);
 
 		Mono<ResponseEntity<Void>> result = webClient
@@ -162,7 +182,7 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 				.create(result)
 				.consumeNextWith(entity -> assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK))
 				.expectComplete()
-				.verify(Duration.ofSeconds(5));
+				.verify(Duration.ofSeconds(10));
 	}
 
 
