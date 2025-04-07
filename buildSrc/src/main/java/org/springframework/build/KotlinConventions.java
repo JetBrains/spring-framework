@@ -25,6 +25,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget;
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion;
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile;
 
+import java.util.Arrays;
+
 /**
  * @author Brian Clozel
  * @author Sebastien Deleuze
@@ -40,6 +42,14 @@ public class KotlinConventions {
 				project.project(":framework-api").getDependencies().add("dokka", project);
 			}
 		});
+	}
+
+	private void setAdditionalCliOptions(KotlinCompile compile) {
+		if (compile.getProject().hasProperty("kotlin_additional_cli_options")) {
+			String cli = (String) compile.getProject().getProperties().get("kotlin_additional_cli_options");
+			compile.getCompilerOptions().getFreeCompilerArgs().addAll(Arrays.stream(cli.trim().split(" ")).toList());
+			System.out.println("Kotlin additional CLI args: " + cli + " in " + compile.getProject());
+		}
 	}
 
 	private void setLanguageVersion(KotlinCompile compile) {
@@ -63,17 +73,21 @@ public class KotlinConventions {
 
 			setLanguageVersion(compile);
 			setApiVersion(compile);
+			setAdditionalCliOptions(compile);
 
 			options.getJvmTarget().set(JvmTarget.JVM_17);
 			options.getJavaParameters().set(true);
-			options.getAllWarningsAsErrors().set(true);
 			options.getFreeCompilerArgs().addAll(
 					"-Xsuppress-version-warnings",
 					"-Xjsr305=strict", // For dependencies using JSR 305
 					"-opt-in=kotlin.RequiresOptIn",
 					"-Xjdk-release=17", // Needed due to https://youtrack.jetbrains.com/issue/KT-49746
-					"-Xannotation-default-target=param-property" // Upcoming default, see https://youtrack.jetbrains.com/issue/KT-73255
+					"-Xreport-all-warnings",
+					"-Xrender-internal-diagnostic-names",
+					"-Wextra",
+					"-Xuse-fir-experimental-checkers"
 			);
+			options.getAllWarningsAsErrors().set(false); // KT-75078
 		});
 	}
 
