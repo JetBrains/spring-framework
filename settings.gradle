@@ -1,6 +1,6 @@
 pluginManagement {
 	repositories {
-		maven {url = settings.ext['kotlin_repo_url']}
+		maven { url settings.ext.find('kotlin_repo_url') ?: kotlin_repo_url }
 		gradlePluginPortal()
 	}
 }
