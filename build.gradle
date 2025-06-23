@@ -28,7 +28,7 @@ configure(allprojects) { project ->
 		if (version.endsWith('-SNAPSHOT')) {
 			maven { url = "https://repo.spring.io/snapshot" }
 		}
-		maven { url = "${project.properties['kotlin_repo_url']?: mavenCentral().url}" }
+		maven { url = "$kotlin_repo_url" }
 
 	}
 	configurations.all {

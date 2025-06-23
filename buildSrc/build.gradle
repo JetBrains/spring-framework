@@ -3,19 +3,20 @@ plugins {
 	id 'checkstyle'
 }
 
-repositories {
-	mavenCentral()
-	gradlePluginPortal()
-	maven { url = "${project.properties['kotlin_repo_url'] ?: mavenCentral().url}" }
-}
-
 ext {
 	def propertiesFile = new File(new File("$projectDir").parentFile, "gradle.properties")
 	propertiesFile.withInputStream {
 		def properties = new Properties()
 		properties.load(it)
-		set("kotlin_version", properties["kotlin_version"])
+		set("kotlin_version", project.properties['kotlin_version'] ?: properties["kotlin_version"])
+		set("kotlin_repo_url", project.properties['kotlin_repo_url'] ?: properties["kotlin_repo_url"])
 	}
+}
+
+repositories {
+	mavenCentral()
+	gradlePluginPortal()
+	maven { url = project.properties['kotlin_repo_url'] }
 }
 
 dependencies {
