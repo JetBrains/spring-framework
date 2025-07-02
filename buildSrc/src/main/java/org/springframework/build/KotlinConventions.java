@@ -75,7 +75,8 @@ public class KotlinConventions {
 					"-Xreport-all-warnings",
 					"-Xrender-internal-diagnostic-names",
 					"-Wextra",
-					"-Xuse-fir-experimental-checkers"
+					"-Xuse-fir-experimental-checkers",
+					"-Xannotation-default-target=param-property"
 			);
 			options.getAllWarningsAsErrors().set(false); // KT-75078
 		});
