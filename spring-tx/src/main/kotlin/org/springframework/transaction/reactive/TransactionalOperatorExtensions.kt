@@ -47,6 +47,6 @@ fun <T : Any> Flow<T>.transactional(operator: TransactionalOperator, context: Co
 */
 suspend fun <T> TransactionalOperator.executeAndAwait(f: suspend (ReactiveTransaction) -> T): T {
 	val context = currentCoroutineContext().minusKey(Job.Key)
-	return execute { status -> mono(context) { f(status) } }.map { value -> Optional.ofNullable(value) }
-				.defaultIfEmpty(Optional.empty()).awaitLast().orElse(null)
+	return execute { status -> mono(context) { Optional.ofNullable(f(status)) } }
+		.awaitLast().orElse(null)
 }
