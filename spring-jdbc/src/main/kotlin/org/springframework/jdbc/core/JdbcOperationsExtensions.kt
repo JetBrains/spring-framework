@@ -65,7 +65,7 @@ inline fun <reified T> JdbcOperations.queryForObject(sql: String, args: Array<ou
  */
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T> JdbcOperations.queryForList(sql: String): List<T> =
-		queryForList(sql, T::class.java) as List<T>
+		queryForList(sql, T::class.java as Class<*>) as List<T>
 
 /**
  * Extension for [JdbcOperations.queryForList] providing a
@@ -77,7 +77,7 @@ inline fun <reified T> JdbcOperations.queryForList(sql: String): List<T> =
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T> JdbcOperations.queryForList(sql: String, args: Array<out Any>,
 												   argTypes: IntArray): List<T> =
-		queryForList(sql, args, argTypes, T::class.java) as List<T>
+		queryForList(sql, args, argTypes, T::class.java as Class<*>) as List<T>
 
 /**
  * Extension for [JdbcOperations.queryForList] providing a
@@ -88,7 +88,7 @@ inline fun <reified T> JdbcOperations.queryForList(sql: String, args: Array<out 
  */
 @Suppress("UNCHECKED_CAST")
 inline fun <reified T> JdbcOperations.queryForList(sql: String, args: Array<out Any>): List<T> =
-		queryForList(sql, T::class.java, args) as List<T>
+		queryForList(sql, T::class.java as Class<*>, args) as List<T>
 
 
 /**
