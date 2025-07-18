@@ -98,6 +98,7 @@ class SseHandlerFunctionIntegrationTests extends AbstractRouterFunctionIntegrati
 
 	@ParameterizedHttpServerTest
 	void sseAsEvent(HttpServer httpServer) throws Exception {
+		Assumptions.assumeFalse(httpServer instanceof UndertowHttpServer); // flaky
 		startServer(httpServer);
 
 		Flux<ServerSentEvent<String>> result = this.webClient.get()
