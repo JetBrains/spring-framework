@@ -84,8 +84,6 @@ public class KotlinConventions {
 					"-Xjdk-release=17", // Needed due to https://youtrack.jetbrains.com/issue/KT-49746
 					"-Xreport-all-warnings",
 					"-Xrender-internal-diagnostic-names",
-					"-Wextra",
-					"-Xuse-fir-experimental-checkers",
 					"-Xannotation-default-target=param-property"
 			);
 			options.getAllWarningsAsErrors().set(false); // KT-75078
