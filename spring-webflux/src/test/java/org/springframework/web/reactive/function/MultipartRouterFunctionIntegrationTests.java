@@ -48,7 +48,6 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.HttpServer;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.TomcatHttpServer;
-import org.springframework.web.testfixture.http.server.reactive.bootstrap.UndertowHttpServer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
@@ -69,7 +68,6 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 	void multipartData(HttpServer httpServer) throws Exception {
 		assumeFalse(httpServer instanceof TomcatHttpServer,
 				"TomcatHttpServer fails with invalid request body chunk");
-		assumeFalse(httpServer instanceof UndertowHttpServer); // flaky
 
 		startServer(httpServer);
 
@@ -91,7 +89,6 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 	void parts(HttpServer httpServer) throws Exception {
 		assumeFalse(httpServer instanceof TomcatHttpServer,
 				"TomcatHttpServer fails with invalid request body chunk");
-		assumeFalse(httpServer instanceof UndertowHttpServer); // flaky
 
 		startServer(httpServer);
 
@@ -113,8 +110,6 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 	void transferTo(HttpServer httpServer) throws Exception {
 		assumeFalse(httpServer instanceof TomcatHttpServer,
 				"TomcatHttpServer fails with invalid request body chunk");
-		// TODO Determine why Undertow fails: https://github.com/spring-projects/spring-framework/issues/25310
-		assumeFalse(httpServer instanceof UndertowHttpServer, "Undertow currently fails with transferTo");
 		verifyTransferTo(httpServer);
 	}
 
@@ -168,7 +163,6 @@ class MultipartRouterFunctionIntegrationTests extends AbstractRouterFunctionInte
 	void proxy(HttpServer httpServer) throws Exception {
 		assumeFalse(httpServer instanceof TomcatHttpServer,
 				"TomcatHttpServer fails with invalid request body chunk");
-		assumeFalse(httpServer instanceof UndertowHttpServer, "Undertow currently fails proxying requests");
 		startServer(httpServer);
 
 		Mono<ResponseEntity<Void>> result = webClient

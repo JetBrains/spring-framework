@@ -20,7 +20,6 @@ import java.time.Duration;
 import java.util.Objects;
 
 import org.jspecify.annotations.Nullable;
-import org.junit.jupiter.api.Assumptions;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -30,7 +29,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.HttpServer;
-import org.springframework.web.testfixture.http.server.reactive.bootstrap.UndertowHttpServer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.TEXT_EVENT_STREAM;
@@ -63,7 +61,6 @@ class SseHandlerFunctionIntegrationTests extends AbstractRouterFunctionIntegrati
 
 	@ParameterizedHttpServerTest
 	void sseAsString(HttpServer httpServer) throws Exception {
-		Assumptions.assumeFalse(httpServer instanceof UndertowHttpServer); // flaky
 		startServer(httpServer);
 
 		Flux<String> result = this.webClient.get()
@@ -98,7 +95,6 @@ class SseHandlerFunctionIntegrationTests extends AbstractRouterFunctionIntegrati
 
 	@ParameterizedHttpServerTest
 	void sseAsEvent(HttpServer httpServer) throws Exception {
-		Assumptions.assumeFalse(httpServer instanceof UndertowHttpServer); // flaky
 		startServer(httpServer);
 
 		Flux<ServerSentEvent<String>> result = this.webClient.get()

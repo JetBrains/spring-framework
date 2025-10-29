@@ -20,7 +20,6 @@ import java.time.Duration;
 import java.util.Objects;
 
 import org.jspecify.annotations.Nullable;
-import org.junit.jupiter.api.Assumptions;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
@@ -37,7 +36,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.adapter.WebHttpHandlerBuilder;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.AbstractHttpHandlerIntegrationTests;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.HttpServer;
-import org.springframework.web.testfixture.http.server.reactive.bootstrap.UndertowHttpServer;
 
 import static org.springframework.http.MediaType.APPLICATION_NDJSON;
 import static org.springframework.http.MediaType.APPLICATION_NDJSON_VALUE;
@@ -88,7 +86,6 @@ class JacksonStreamingIntegrationTests extends AbstractHttpHandlerIntegrationTes
 
 	@ParameterizedHttpServerTest
 	void smileStreaming(HttpServer httpServer) throws Exception {
-		Assumptions.assumeFalse(httpServer instanceof UndertowHttpServer); // flaky
 		startServer(httpServer);
 
 		Flux<Person> result = this.webClient.get()

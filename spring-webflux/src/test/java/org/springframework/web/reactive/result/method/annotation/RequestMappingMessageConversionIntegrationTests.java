@@ -33,7 +33,6 @@ import io.reactivex.rxjava3.core.Single;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import org.jspecify.annotations.Nullable;
-import org.junit.jupiter.api.Assumptions;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -60,7 +59,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.HttpServer;
-import org.springframework.web.testfixture.http.server.reactive.bootstrap.UndertowHttpServer;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -318,7 +316,6 @@ class RequestMappingMessageConversionIntegrationTests extends AbstractRequestMap
 
 	@ParameterizedHttpServerTest
 	void personTransformWithPublisher(HttpServer httpServer) throws Exception {
-		Assumptions.assumeFalse(httpServer instanceof UndertowHttpServer); // flaky
 		startServer(httpServer);
 
 		List<?> req = asList(new Person("Robert"), new Person("Marie"));

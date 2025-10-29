@@ -30,10 +30,8 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.AbstractHttpHandlerIntegrationTests;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.HttpServer;
-import org.springframework.web.testfixture.http.server.reactive.bootstrap.UndertowHttpServer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * Integration tests for server response flushing behavior.
@@ -57,7 +55,6 @@ class FlushingIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 
 	@ParameterizedHttpServerTest
 	void writeAndFlushWith(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof UndertowHttpServer, "flaky");
 		startServer(httpServer);
 
 		Mono<String> result = this.webClient.get()

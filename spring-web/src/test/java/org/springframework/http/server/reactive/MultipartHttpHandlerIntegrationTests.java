@@ -40,11 +40,9 @@ import org.springframework.web.server.WebHandler;
 import org.springframework.web.server.adapter.HttpWebHandlerAdapter;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.AbstractHttpHandlerIntegrationTests;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.HttpServer;
-import org.springframework.web.testfixture.http.server.reactive.bootstrap.UndertowHttpServer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.type;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * @author Sebastien Deleuze
@@ -63,7 +61,6 @@ class MultipartHttpHandlerIntegrationTests extends AbstractHttpHandlerIntegratio
 
 	@ParameterizedHttpServerTest
 	void getMultipartMixed(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof UndertowHttpServer, "Sometimes hangs the build");
 		testMultipart(httpServer, MediaType.MULTIPART_MIXED);
 	}
 
