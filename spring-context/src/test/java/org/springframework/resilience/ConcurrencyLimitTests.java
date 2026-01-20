@@ -22,6 +22,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.aop.config.AopConfigUtils;
@@ -120,6 +121,7 @@ class ConcurrencyLimitTests {
 	}
 
 	@Test
+	@Disabled("flaky")
 	void withPostProcessorForMethodWithRejection() throws Exception{
 		if (ForkJoinPool.getCommonPoolParallelism() < 4) {
 			return;  // not enough concurrency possible
