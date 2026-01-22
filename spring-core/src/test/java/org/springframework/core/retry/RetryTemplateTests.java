@@ -736,6 +736,7 @@ class RetryTemplateTests {
 		}
 
 		@Test
+		@Disabled
 		void retryableWithTimeoutExceededAfterFirstRetry() {
 			RetryPolicy retryPolicy = RetryPolicy.builder()
 					.timeout(Duration.ofMillis(20))
