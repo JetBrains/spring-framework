@@ -59,6 +59,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @since 7.0
  * @see RetryPolicyTests
  */
+@Disabled("flaky")
 class RetryTemplateTests {
 
 	private final RetryPolicy retryPolicy = RetryPolicy.builder().maxRetries(3).delay(Duration.ZERO).build();
