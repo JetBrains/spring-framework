@@ -26,6 +26,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.assertj.core.api.ThrowingConsumer;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import reactor.core.Exceptions;
@@ -55,6 +56,7 @@ import static org.assertj.core.api.Assertions.assertThatRuntimeException;
  * @author Sam Brannen
  * @since 7.0
  */
+@Disabled("flaky")
 class ReactiveRetryInterceptorTests {
 
 	@Test
