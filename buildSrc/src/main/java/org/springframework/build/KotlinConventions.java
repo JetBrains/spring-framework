@@ -83,9 +83,7 @@ public class KotlinConventions {
 					"-opt-in=kotlin.RequiresOptIn",
 					"-Xjdk-release=17", // Needed due to https://youtrack.jetbrains.com/issue/KT-49746
 					"-Xreport-all-warnings",
-					"-Xrender-internal-diagnostic-names",
-					"-Xannotation-default-target=param-property"
-			);
+					"-Xrender-internal-diagnostic-names");
 			options.getAllWarningsAsErrors().set(false); // KT-75078
 		});
 	}
