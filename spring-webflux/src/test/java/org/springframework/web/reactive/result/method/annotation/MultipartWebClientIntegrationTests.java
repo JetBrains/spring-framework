@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.junit.jupiter.api.Assumptions;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -62,11 +61,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.adapter.WebHttpHandlerBuilder;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.AbstractHttpHandlerIntegrationTests;
 import org.springframework.web.testfixture.http.server.reactive.bootstrap.HttpServer;
-import org.springframework.web.testfixture.http.server.reactive.bootstrap.JettyCoreHttpServer;
-import org.springframework.web.testfixture.http.server.reactive.bootstrap.TomcatHttpServer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 
@@ -88,8 +84,6 @@ class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationT
 
 	@ParameterizedHttpServerTest
 	void requestPart(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof TomcatHttpServer,
-				"TomcatHttpServer fails with invalid request body chunk");
 		startServer(httpServer);
 
 		Mono<ResponseEntity<Void>> result = webClient
@@ -107,8 +101,6 @@ class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationT
 
 	@ParameterizedHttpServerTest
 	void requestBodyMap(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof TomcatHttpServer,
-				"TomcatHttpServer fails with invalid request body chunk");
 		startServer(httpServer);
 
 		Mono<String> result = webClient
@@ -125,8 +117,6 @@ class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationT
 
 	@ParameterizedHttpServerTest
 	void requestBodyFlux(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof TomcatHttpServer,
-				"TomcatHttpServer fails with invalid request body chunk");
 		startServer(httpServer);
 
 		Mono<String> result = webClient
@@ -143,8 +133,6 @@ class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationT
 
 	@ParameterizedHttpServerTest
 	void filePartsFlux(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof TomcatHttpServer,
-				"TomcatHttpServer fails with invalid request body chunk");
 		startServer(httpServer);
 
 		Mono<String> result = webClient
@@ -161,8 +149,6 @@ class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationT
 
 	@ParameterizedHttpServerTest
 	void filePartsMono(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof TomcatHttpServer,
-				"TomcatHttpServer fails with invalid request body chunk");
 		startServer(httpServer);
 
 		Mono<String> result = webClient
@@ -179,10 +165,6 @@ class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationT
 
 	@ParameterizedHttpServerTest
 	void transferTo(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof TomcatHttpServer,
-				"TomcatHttpServer fails with invalid request body chunk");
-		Assumptions.assumeFalse(httpServer instanceof JettyCoreHttpServer); // flaky
-
 		startServer(httpServer);
 
 		Flux<String> result = webClient
@@ -201,8 +183,6 @@ class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationT
 
 	@ParameterizedHttpServerTest
 	void modelAttribute(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof TomcatHttpServer,
-				"TomcatHttpServer fails with invalid request body chunk");
 		startServer(httpServer);
 
 		Mono<String> result = webClient
@@ -219,8 +199,6 @@ class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationT
 
 	@ParameterizedHttpServerTest
 	void partData(HttpServer httpServer) throws Exception {
-		assumeFalse(httpServer instanceof TomcatHttpServer,
-				"TomcatHttpServer fails with invalid request body chunk");
 		startServer(httpServer);
 
 		Mono<String> result = webClient
