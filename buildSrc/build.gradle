@@ -16,7 +16,18 @@ ext {
 repositories {
 	mavenCentral()
 	gradlePluginPortal()
-	maven { url = project.properties['kotlin_repo_url'] }
+	def kotlinRepoUrl = project.findProperty('kotlin_repo_url')
+	def kotlinVersion = project.findProperty('kotlin_version')
+	if (kotlinRepoUrl && kotlinVersion) {
+		exclusiveContent {
+			forRepository {
+				maven { url = kotlinRepoUrl }
+			}
+			filter {
+				includeVersionByRegex("org.jetbrains.kotlin.*", ".*", kotlinVersion)
+			}
+		}
+	}
 }
 
 dependencies {

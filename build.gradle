@@ -21,7 +21,18 @@ configure(allprojects) { project ->
     apply plugin: "org.springframework.build.repositories"
 	group = "org.springframework"
 	repositories {
-		maven { url = "$kotlin_repo_url" }
+		def kotlinRepoUrl = project.findProperty("kotlin_repo_url")
+		def kotlinVersion = project.findProperty("kotlin_version")
+		if (kotlinRepoUrl && kotlinVersion) {
+			exclusiveContent {
+				forRepository {
+					maven { url = kotlinRepoUrl }
+				}
+				filter {
+					includeVersionByRegex("org.jetbrains.kotlin.*", ".*", kotlinVersion)
+				}
+			}
+		}
 	}
 	configurations.all {
 		resolutionStrategy {

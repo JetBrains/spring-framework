@@ -1,6 +1,17 @@
 pluginManagement {
+	def kotlinRepoUrl = settings.ext.find('kotlin_repo_url')
+	def kotlinVersion = settings.ext.find('kotlin_version')
 	repositories {
-		maven { url settings.ext.find('kotlin_repo_url') ?: kotlin_repo_url }
+		if (kotlinRepoUrl && kotlinVersion) {
+			exclusiveContent {
+				forRepository {
+					maven { url = kotlinRepoUrl }
+				}
+				filter {
+					includeVersionByRegex("org.jetbrains.kotlin.*", ".*", kotlinVersion)
+				}
+			}
+		}
 		gradlePluginPortal()
 	}
 }
