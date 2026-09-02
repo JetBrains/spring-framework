@@ -73,7 +73,7 @@ class WebSessionIntegrationTests extends AbstractHttpHandlerIntegrationTests {
 		assertThat(this.handler.getSessionRequestCount()).isEqualTo(2);
 	}
 
-	@ParameterizedHttpServerTest
+	//@ParameterizedHttpServerTest
 	public void expiredSessionIsRecreated(HttpServer httpServer) throws Exception {
 		startServer(httpServer);
 

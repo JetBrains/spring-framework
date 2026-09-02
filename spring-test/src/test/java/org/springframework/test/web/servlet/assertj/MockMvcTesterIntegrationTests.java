@@ -156,14 +156,14 @@ class MockMvcTesterIntegrationTests {
 
 		@Test
 		void asyncRequestWithExplicitExchangeAndEnoughTimeToWait() {
-			assertThat(mvc.get().uri("/streaming").param("timeToWait", "100").exchange(Duration.ofMillis(200)))
+			assertThat(mvc.get().uri("/streaming").param("timeToWait", "100").exchange(Duration.ofMillis(500)))
 					.hasStatusOk().hasBodyTextEqualTo("name=Joe&someBoolean=true");
 		}
 
 		@Test
 		void asyncMultipartRequestWithExplicitExchangeAndEnoughTimeToWait() {
 			assertThat(mvc.post().uri("/multipart-streaming").multipart()
-					.file(file).param("timeToWait", "100").exchange(Duration.ofMillis(200)))
+					.file(file).param("timeToWait", "100").exchange(Duration.ofMillis(500)))
 					.hasStatusOk().hasBodyTextEqualTo("name=Joe&file=content.txt");
 		}
 

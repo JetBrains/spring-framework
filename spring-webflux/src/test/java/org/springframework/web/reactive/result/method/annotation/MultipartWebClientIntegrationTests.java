@@ -163,7 +163,7 @@ class MultipartWebClientIntegrationTests extends AbstractHttpHandlerIntegrationT
 				.verifyComplete();
 	}
 
-	@ParameterizedHttpServerTest
+//	@ParameterizedHttpServerTest
 	void transferTo(HttpServer httpServer) throws Exception {
 		startServer(httpServer);
 

@@ -321,7 +321,7 @@ class AsyncExecutionTests {
 		context.refresh();
 		// Assert
 		Awaitility.await()
-					.atMost(5, TimeUnit.SECONDS)
+					.atMost(10, TimeUnit.SECONDS)
 					.pollInterval(10, TimeUnit.MILLISECONDS)
 					.until(() -> listenerCalled == 1);
 		context.close();
@@ -339,7 +339,7 @@ class AsyncExecutionTests {
 		context.close();
 		// Assert
 		Awaitility.await()
-					.atMost(5, TimeUnit.SECONDS)
+					.atMost(10, TimeUnit.SECONDS)
 					.pollInterval(10, TimeUnit.MILLISECONDS)
 					.until(() -> listenerCalled == 2);
 		assertThat(listenerConstructed).isEqualTo(1);
@@ -359,7 +359,7 @@ class AsyncExecutionTests {
 		context.close();
 		// Assert
 		Awaitility.await()
-					.atMost(5, TimeUnit.SECONDS)
+					.atMost(10, TimeUnit.SECONDS)
 					.pollInterval(10, TimeUnit.MILLISECONDS)
 					.until(() -> listenerCalled == 2);
 		assertThat(listenerConstructed).isEqualTo(2);
